@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using iTopAPIClientDotNet.API.Request;
+using Newtonsoft.Json;
 
 namespace iTopAPIClientDotNet.API
 {

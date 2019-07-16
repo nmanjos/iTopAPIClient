@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using iTopAPIClientDotNet.API.Request;
+using iTopAPIClientDotNet.API.Response;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -38,21 +40,23 @@ namespace iTopAPIClientDotNet.API
                     }
                 }
             }
-
-
             return res;
         }
 
 
 
 
-        public static async Task<ResponseMessage> iTopAPICall(string operation, RequestMessage message)
+        public static async Task<ResponseMessage> iTopAPICall(RequestMessage message)
         {
 
             iTopAPIMessage msg = new iTopAPIMessage();
             msg.EndPoint=ConfigurationManager.AppSettings["iTopAPI.Endpoint"];
             var creds = new Credentials { Username = ConfigurationManager.AppSettings["iTopAPI.Username"], Password = ConfigurationManager.AppSettings["iTopAPI.Password"] };
             msg.Credentials = Convert.ToBase64String(Encoding.UTF8.GetBytes(creds.Username  ));
+            msg.Create = message;
+            //msg.Create.operation = message.operation;
+            //msg.Create.fields.caller_id.first_name = "";
+            //msg.Create.fields.caller_id.name = "";
             var response = await iTopAPIWorker(msg);
             return JsonConvert.DeserializeObject<ResponseMessage>(response.Content.ReadAsStringAsync().Result);
         }

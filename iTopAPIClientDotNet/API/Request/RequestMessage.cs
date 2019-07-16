@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace iTopAPIClientDotNet.API
+namespace iTopAPIClientDotNet.API.Request
 {
     public class RequestMessage
     {
